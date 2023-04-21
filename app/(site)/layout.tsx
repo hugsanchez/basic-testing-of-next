@@ -1,6 +1,7 @@
 import './globals.css'
 import Footer from './footer'
 import Header from './header'
+import Provider from './provider'
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,13 +14,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <Header></Header>
-        <main>
-          {children}
-        </main>
-        <Footer></Footer>
+    <html lang="en" className='h-full scroll-smooth antialiassed'>
+      <body className='flex h-full flex-col'>
+        <Provider>
+          <Header></Header>
+          <main className='grow'>
+            {children}
+          </main>
+          <Footer></Footer>
+        </Provider>
       </body>
     </html>
   )

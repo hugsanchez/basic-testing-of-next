@@ -26,7 +26,7 @@ export async function createUser(user:User){
 
 export async function getUserById(id:number) {
   try{
-    const user = await prisma.user.findUnique({ where: {id}});
+    const user = await prisma.user.findUnique({ where: {id}, include: {tweets: true}});
     return { user } 
   } catch(error) {
     return { error }

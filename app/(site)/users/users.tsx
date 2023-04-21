@@ -1,6 +1,8 @@
 import { getUsers } from "@/prisma/user/user";
 import Link from "next/link";
 
+export const revalidate = 0;
+
 const Users = async() => {
   //const { users } = await getUsers();
   let users = [
@@ -26,10 +28,10 @@ const Users = async() => {
   return (
     <section className="fixed h-full w-1/4 bg-stone-800">
       <div className="center py-4">
-        <h2 className="mb-4 text-xl font-medium text-white">Users ???</h2>
-        <ul className="flex flex-col text-sm text-white">
+        <h2 className="mb-4 text-xl  border-b border-stone-800 font-medium text-white">Users ???</h2>
+        <ul className="flex flex-col text-sm text-white list-none gap-1 list-inside">
           {users?.map(user => (
-            <li key={user.id}>
+            <li key={user.id} className="text-base">
               <Link href={`/users/${user.id}`}>{user.name}</Link>
             </li>
           ))}

@@ -2,6 +2,7 @@
 
 .env
 notes.txt
+auth-notes.txt
 
 # dependencies
 /node_modules

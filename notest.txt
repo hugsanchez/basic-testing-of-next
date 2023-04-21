@@ -1,0 +1,67 @@
+LOADING.tsx
+- which uses React suspense behind the scenes to show a fallback loading componenet 
+    while it is fetching data
+- while its fetching the data and it's going to swap the loading fallback componenet
+    with the actual users component or User component 
+
+
+Error.tsx
+- If anything happens if the Server throws an Error it will be captured in this error boundary 
+    and it will PREVENT IT FROM CRASHING OUR APP 
+- Copied from next.js 13 beta docs they have "use client" on Top
+    - that string on the top indicates that this component is going to be Client Component where 
+        we can use React Hooks 
+- Use it to log your errors to a reporting service 
+- You can also have this reset function that is passed to your Error boundary component to reset your error
+
+FILES OR COMPONENTS ARE STATICALLY GENEREATED AT BUILD TIME ON THE SERVER OR 
+  THEY ARE DYNAMICALLY RENDERED ON THE SERVER BUT AT REQUEST TIME 
+
+- Lambda (looks like A) sign shows a server side rendered page thats at runtime 
+- Empty circle ( o ) shows a statically generated page at build time 
+
+    - o /users AND o /about are statically generated pages
+    - A /users/[userId] dynamic route is a Server Rendered OR DYNAMICALLY RENDERED route 
+
+IN NEXT 12 WE WERE ABLE TO STATICALLY GENERATE EVEN DYNAMIC ROUTES
+- we would use getStaticPath to tell next.js all the possible paths for this Dynamic route
+
+DYNAMIC ROUTES ARE SERVER RENDERED IF WE DO NOT SPECIFY SPECIFC PATHS FOR IT
+- GENERATE STATIC PARAMS
+    - Can be used in combination with our Dynamic Routes to define a list of Route Segments or 
+        parameters that will be statically generated at build time instead of on demand 
+    - Tell next.js what possible parameters exist for our Dynamic Route so you can go ahead and generate
+        those statically at build time 
+
+- running npm run build now 
+    - filled in cirlce ( . ) /users/userId --> now it is a statically generated as HTML plus JSON because
+        we predefined the params with 
+          generateStaticParams on the top of the page where we normally pass them in one by one 
+    - Difference between filled circle and open circle is one DOES NOT NEED ANY DATA so it is just HTML and 
+        the dynamic routes which do need data to be fetched at build time are using HTML plus JSON 
+        --> equivalent to getStaticProps in next.js 12
+
+RELATIONS IN PRISMA 
+- We are creating a relationship between Tweet and the User by including the user property line 
+    - What we are saying is that this is a relationship field which indicates or RELATES the userID field in  
+        this Tweet collection to an ID of a User 
+- In the User model we are also mentioning that I have a tweets field which would be an array of tweets 
+
+WHEN YOU ARE FETCHING THE USER WE WANT YOU TO ALSO FETCH THE TWEETS
+- Fix the getUserById by adding an include property with tweets and set it to true
+- This is going to go and look at the relationship field that will be generated in our Prisma
+    schema find the relationship key which is the userId goes into the tweets collection and find all 
+        the tweets that have that userId as this User 
+
+LOGINBUTTON.tsx
+- client componenet because i am calling some of the next auth function such as sign in and useSession to get the
+    current user or to Sign them in if NOT or send them to the sign in page 
+- Using useSession hook to see if there is a session or not 
+    - If there is a session I wan to show the users image an avatar
+        - No image just show dummy svg componenet
+
+- If there is no session just render a button that says Sign In on it 
+- onClick call sign in method from next-auth 
+    - Which just redirects the user to the Sign In page 
+- Sets up callback URL if signing in and takes you back to page you were at 
+
